@@ -8,6 +8,7 @@
     tools:context="com.example.danielkadrnozka.budik_kadrnozka.MainActivity"
     tools:showIn="@layout/activity_main">
 
+
     <TimePicker
         android:id="@+id/timePicker"
         android:layout_width="wrap_content"
@@ -15,7 +16,7 @@
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp" />
 
-    <TextView
+    <Button
         android:id="@+id/zapnoutBudik"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -23,12 +24,20 @@
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="384dp" />
 
-    <TextView
+    <Button
         android:id="@+id/vypnoutBudik"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Vypnout"
         tools:layout_editor_absoluteX="279dp"
         tools:layout_editor_absoluteY="384dp" />
+
+    <TextView
+        android:id="@+id/infoZapVyp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="alarm není nastaven"
+        tools:layout_editor_absoluteX="141dp"
+        tools:layout_editor_absoluteY="451dp" />
 
 </android.support.constraint.ConstraintLayout>
