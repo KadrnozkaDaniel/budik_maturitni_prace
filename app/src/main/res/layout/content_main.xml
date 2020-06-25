@@ -19,7 +19,7 @@
         android:id="@+id/zapnoutBudik"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Zapnout budík"
+        android:text="Zapnout"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="384dp" />
 
@@ -27,7 +27,7 @@
         android:id="@+id/vypnoutBudik"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Vypnout budík"
+        android:text="Vypnout"
         tools:layout_editor_absoluteX="279dp"
         tools:layout_editor_absoluteY="384dp" />
 
