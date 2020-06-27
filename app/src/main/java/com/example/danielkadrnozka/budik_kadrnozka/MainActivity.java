@@ -53,7 +53,17 @@ public class MainActivity extends AppCompatActivity {
 
         //inicializace tlačítka pro zapnutí budíku
         Button zapnoutBudik = (Button) findViewById(R.id.zapnoutBudik);
-        //vytvoření onClick pro zapnutí budíku
+        //vytvoření onClick listeneru pro zapnutí budíku
+
+        zapnoutBudik.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                //metoda která změní text u TextViewu infoZapVyp
+                nastavInfoZapVyp("alarm je nastaven");
+            }
+        });
+
 
 
 
@@ -61,7 +71,14 @@ public class MainActivity extends AppCompatActivity {
         Button vypnoutBudik = (Button) findViewById(R.id.vypnoutBudik);
         //vytvoření onClick pro vypnutí budíku
 
+        vypnoutBudik.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+                //metoda která změní text u TextViewu infoZapVyp
+                nastavInfoZapVyp("alarm není nastaven");
+            }
+        });
 
 
 
@@ -70,6 +87,16 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+    private void nastavInfoZapVyp(String vystup) {
+        infoZapVyp.setText(vystup); //změní text u infoZapVyp na "alarm je/není nastaven"
+                                    //podle toho jestli klikneme na zapnout nebo vypnout budík
+    }
+
+
+
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
