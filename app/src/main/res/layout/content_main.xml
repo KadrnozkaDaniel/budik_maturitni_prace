@@ -20,24 +20,32 @@
         android:id="@+id/zapnoutBudik"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Zapnout"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="384dp" />
+        android:layout_marginBottom="79dp"
+        android:layout_marginStart="16dp"
+        android:text="zapnout"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/vypnoutBudik"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Vypnout"
-        tools:layout_editor_absoluteX="279dp"
-        tools:layout_editor_absoluteY="384dp" />
+        android:layout_marginBottom="79dp"
+        android:layout_marginEnd="16dp"
+        android:text="vypnout"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/infoZapVyp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="41dp"
+        android:layout_marginEnd="118dp"
+        android:layout_marginStart="141dp"
         android:text="alarm není nastaven"
-        tools:layout_editor_absoluteX="141dp"
-        tools:layout_editor_absoluteY="451dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
