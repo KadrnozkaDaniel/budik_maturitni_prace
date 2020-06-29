@@ -57,6 +57,12 @@ public class MainActivity extends AppCompatActivity {
         //inicializace tlačítka pro zapnutí budíku
         Button zapnoutBudik = (Button) findViewById(R.id.zapnoutBudik);
 
+
+        //nastavení timePickeru na 24 hodinový formát času
+        alarmTimePicker.setIs24HourView(true);
+        alarmTimePicker.setCurrentHour(Calendar.getInstance().get(Calendar.HOUR_OF_DAY));
+
+
         //vytvoření onClick listeneru pro zapnutí budíku
         zapnoutBudik.setOnClickListener(new View.OnClickListener() {
             @Override
