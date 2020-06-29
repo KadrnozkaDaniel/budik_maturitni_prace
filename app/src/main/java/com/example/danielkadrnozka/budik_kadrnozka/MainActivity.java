@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,19 +49,37 @@ public class MainActivity extends AppCompatActivity {
         //inicializace okna s informací zda je alarm zapnut či vypnut
         infoZapVyp = (TextView) findViewById(R.id.infoZapVyp);
 
-        //vytvoření instance kalendáře
-        Calendar calendar = Calendar.getInstance();
+        //vytvoření instance třídy Calendar
+        final Calendar calendar = Calendar.getInstance();
+
+
 
         //inicializace tlačítka pro zapnutí budíku
         Button zapnoutBudik = (Button) findViewById(R.id.zapnoutBudik);
-        //vytvoření onClick listeneru pro zapnutí budíku
 
+        //vytvoření onClick listeneru pro zapnutí budíku
         zapnoutBudik.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                //metoda která změní text u TextViewu infoZapVyp
-                nastavInfoZapVyp("alarm je nastaven");
+                //nastavení instance z třídy Calendar na hodiny a minuty
+                //co jsme vybrali v timepickeru
+                calendar.set(Calendar.HOUR_OF_DAY, alarmTimePicker.getHour());
+                calendar.set(Calendar.MINUTE, alarmTimePicker.getMinute());
+
+                //získání int hodnot hodin a minut
+                int hodiny = alarmTimePicker.getHour();
+                int minuty = alarmTimePicker.getMinute();
+
+                //převod hodin/minut z int na String
+                String hodinyString = String.valueOf(hodiny);
+                String minutyString = String.valueOf(minuty);
+
+
+
+
+                //metoda která změní text u TextViewu infoZapVyp na "alarm je nastaven"
+                nastavInfoZapVyp("alarm je nastaven na: " + hodinyString + ":" + minutyString);
             }
         });
 
@@ -69,18 +88,16 @@ public class MainActivity extends AppCompatActivity {
 
         //inicializace tlačítka pro vypnutí budíku
         Button vypnoutBudik = (Button) findViewById(R.id.vypnoutBudik);
-        //vytvoření onClick pro vypnutí budíku
 
+        //vytvoření onClick listeneru pro vypnutí budíku
         vypnoutBudik.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                //metoda která změní text u TextViewu infoZapVyp
+                //metoda která změní text u TextViewu infoZapVyp na "alarm není nastaven"
                 nastavInfoZapVyp("alarm není nastaven");
             }
         });
-
-
 
 
 
