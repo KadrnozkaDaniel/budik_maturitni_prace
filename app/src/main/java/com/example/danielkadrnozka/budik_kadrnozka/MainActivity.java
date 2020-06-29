@@ -81,7 +81,11 @@ public class MainActivity extends AppCompatActivity {
                 String hodinyString = String.valueOf(hodiny);
                 String minutyString = String.valueOf(minuty);
 
-
+                //přidání nuly při výpisu méně jak 10 minut
+                //např při 14:7 na 14:07
+                if (minuty < 10){
+                    minutyString = "0" + String.valueOf(minuty);
+                }
 
 
                 //metoda která změní text u TextViewu infoZapVyp na "alarm je nastaven"
