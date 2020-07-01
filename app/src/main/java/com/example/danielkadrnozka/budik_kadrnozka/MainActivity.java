@@ -4,7 +4,9 @@ package com.example.danielkadrnozka.budik_kadrnozka;
 
 
 import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -16,17 +18,16 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.TimePicker;
-
 import java.util.Calendar;
+
 
 public class MainActivity extends AppCompatActivity {
 
-    //import tříd AlarmManager, TimePicker a TextView
     AlarmManager alarm_manager;
     TimePicker alarmTimePicker;
     TextView infoZapVyp;
-
     Context context;
+    PendingIntent pendingIntent;
 
 
 
@@ -52,16 +53,22 @@ public class MainActivity extends AppCompatActivity {
         //vytvoření instance třídy Calendar
         final Calendar calendar = Calendar.getInstance();
 
-
-
-        //inicializace tlačítka pro zapnutí budíku
-        Button zapnoutBudik = (Button) findViewById(R.id.zapnoutBudik);
-
-
         //nastavení timePickeru na 24 hodinový formát času
         alarmTimePicker.setIs24HourView(true);
         alarmTimePicker.setCurrentHour(Calendar.getInstance().get(Calendar.HOUR_OF_DAY));
 
+
+
+
+        //vytvoření Intentu do třídy AlarmReceiver
+        final Intent i = new Intent(this.context, AlarmReceiver.class);
+
+
+
+
+
+        //inicializace tlačítka pro zapnutí budíku
+        Button zapnoutBudik = (Button) findViewById(R.id.zapnoutBudik);
 
         //vytvoření onClick listeneru pro zapnutí budíku
         zapnoutBudik.setOnClickListener(new View.OnClickListener() {
@@ -90,8 +97,19 @@ public class MainActivity extends AppCompatActivity {
 
                 //metoda která změní text u TextViewu infoZapVyp na "alarm je nastaven"
                 nastavInfoZapVyp("alarm je nastaven na: " + hodinyString + ":" + minutyString);
+
+                //
+                pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, i, PendingIntent.FLAG_UPDATE_CURRENT);
+
+                //
+                alarm_manager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+
             }
         });
+
+
+
+
 
 
 
@@ -106,6 +124,9 @@ public class MainActivity extends AppCompatActivity {
 
                 //metoda která změní text u TextViewu infoZapVyp na "alarm není nastaven"
                 nastavInfoZapVyp("alarm není nastaven");
+
+
+
             }
         });
 
