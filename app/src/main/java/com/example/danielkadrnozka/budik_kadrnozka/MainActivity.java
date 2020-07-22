@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         //vytvoření Intentu do třídy AlarmReceiver
-        final Intent i = new Intent(this.context, AlarmReceiver.class);
+        final Intent intent = new Intent(this, AlarmReceiver.class);
 
 
 
@@ -75,10 +76,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                long time;
                 //nastavení instance z třídy Calendar na hodiny a minuty
                 //co jsme vybrali v timepickeru
-                calendar.set(Calendar.HOUR_OF_DAY, alarmTimePicker.getHour());
-                calendar.set(Calendar.MINUTE, alarmTimePicker.getMinute());
+                calendar.set(Calendar.HOUR_OF_DAY, alarmTimePicker.getCurrentHour());
+                calendar.set(Calendar.MINUTE, alarmTimePicker.getCurrentMinute());
 
                 //získání int hodnot hodin a minut
                 int hodiny = alarmTimePicker.getHour();
@@ -94,15 +96,25 @@ public class MainActivity extends AppCompatActivity {
                     minutyString = "0" + String.valueOf(minuty);
                 }
 
+                time=(calendar.getTimeInMillis()-(calendar.getTimeInMillis()%60000));
+                if(System.currentTimeMillis()>time)
+                {
+                    if (calendar.AM_PM == 0)
+                        time = time + (1000*60*60*12);
+                    else
+                        time = time + (1000*60*60*24);
+                }
+
 
                 //metoda která změní text u TextViewu infoZapVyp na "alarm je nastaven"
                 nastavInfoZapVyp("alarm je nastaven na: " + hodinyString + ":" + minutyString);
 
                 //
-                pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, i, PendingIntent.FLAG_UPDATE_CURRENT);
+                pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-                //
-                alarm_manager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+                //tady je někde problém, nutno vyřešit
+                //nastavení alarm_manageru
+                alarm_manager.setRepeating(AlarmManager.RTC_WAKEUP, time, 10000 ,pendingIntent);
 
             }
         });
@@ -125,6 +137,8 @@ public class MainActivity extends AppCompatActivity {
                 //metoda která změní text u TextViewu infoZapVyp na "alarm není nastaven"
                 nastavInfoZapVyp("alarm není nastaven");
 
+                //storno alarmu
+                alarm_manager.cancel(pendingIntent);
 
 
             }
