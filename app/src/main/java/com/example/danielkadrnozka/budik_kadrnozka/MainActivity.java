@@ -8,8 +8,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -20,7 +18,6 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import java.util.Calendar;
 
-
 public class MainActivity extends AppCompatActivity {
 
     AlarmManager alarm_manager;
@@ -28,10 +25,6 @@ public class MainActivity extends AppCompatActivity {
     TextView infoZapVyp;
     Context context;
     PendingIntent pendingIntent;
-
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,17 +49,9 @@ public class MainActivity extends AppCompatActivity {
 
         //nastavení timePickeru na 24 hodinový formát času
         alarmTimePicker.setIs24HourView(true);
-        alarmTimePicker.setCurrentHour(Calendar.getInstance().get(Calendar.HOUR_OF_DAY));
-
-
-
 
         //vytvoření Intentu do třídy AlarmReceiver
         final Intent intent = new Intent(this, AlarmReceiver.class);
-
-
-
-
 
         //inicializace tlačítka pro zapnutí budíku
         Button zapnoutBudik = (Button) findViewById(R.id.zapnoutBudik);
@@ -97,34 +82,18 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 time=(calendar.getTimeInMillis()-(calendar.getTimeInMillis()%60000));
-                if(System.currentTimeMillis()>time)
-                {
-                    if (calendar.AM_PM == 0)
-                        time = time + (1000*60*60*12);
-                    else
-                        time = time + (1000*60*60*24);
-                }
 
 
                 //metoda která změní text u TextViewu infoZapVyp na "alarm je nastaven"
                 nastavInfoZapVyp("alarm je nastaven na: " + hodinyString + ":" + minutyString);
 
-                //
+                //odděláno pro test vypnutí budíku
                 pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-                //tady je někde problém, nutno vyřešit
-                //nastavení alarm_manageru
-                alarm_manager.setRepeating(AlarmManager.RTC_WAKEUP, time, 10000 ,pendingIntent);
-
+                //nastavení alarm_manageru (je volán každých 5s)
+                alarm_manager.setRepeating(AlarmManager.RTC_WAKEUP, time, 5000 ,pendingIntent);
             }
         });
-
-
-
-
-
-
-
 
         //inicializace tlačítka pro vypnutí budíku
         Button vypnoutBudik = (Button) findViewById(R.id.vypnoutBudik);
@@ -139,26 +108,15 @@ public class MainActivity extends AppCompatActivity {
 
                 //storno alarmu
                 alarm_manager.cancel(pendingIntent);
-
-
             }
         });
-
-
-
-
-
     }
 
+    //změní text u infoZapVyp na "alarm je/není nastaven"
+    //podle toho jestli klikneme na zapnout nebo vypnout budík
     private void nastavInfoZapVyp(String vystup) {
-        infoZapVyp.setText(vystup); //změní text u infoZapVyp na "alarm je/není nastaven"
-                                    //podle toho jestli klikneme na zapnout nebo vypnout budík
+        infoZapVyp.setText(vystup);
     }
-
-
-
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
