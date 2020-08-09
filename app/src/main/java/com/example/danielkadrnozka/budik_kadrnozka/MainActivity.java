@@ -2,7 +2,6 @@ package com.example.danielkadrnozka.budik_kadrnozka;
 
 //version 1.0
 
-
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -83,14 +82,12 @@ public class MainActivity extends AppCompatActivity {
 
                 time=(calendar.getTimeInMillis()-(calendar.getTimeInMillis()%60000));
 
-
                 //metoda která změní text u TextViewu infoZapVyp na "alarm je nastaven"
                 nastavInfoZapVyp("alarm je nastaven na: " + hodinyString + ":" + minutyString);
 
-                //odděláno pro test vypnutí budíku
                 pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-                //nastavení alarm_manageru (je volán každých 5s)
+                //nastavení volání alarm_manageru (je volán každých 5s)
                 alarm_manager.setRepeating(AlarmManager.RTC_WAKEUP, time, 5000 ,pendingIntent);
             }
         });
@@ -117,6 +114,11 @@ public class MainActivity extends AppCompatActivity {
     private void nastavInfoZapVyp(String vystup) {
         infoZapVyp.setText(vystup);
     }
+
+
+
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
